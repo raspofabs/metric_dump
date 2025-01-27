@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "metric-dump"
+version = "0.1.0"
+description = ""
+authors = ["Richard Fabian <raspo1@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.scripts]
+metric_server = "metric_dump.serve:run"
+metric_small = "metric_dump.client:send_tick"
+metric_large = "metric_dump.client:send_larger"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+click = "^8.1.8"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
