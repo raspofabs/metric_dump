@@ -1,5 +1,8 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from urllib.parse import urlparse, parse_qs
+import click
+import contextlib
+import os
 import json
 
 def create_handler_class(dump_file):
@@ -14,9 +17,8 @@ def create_handler_class(dump_file):
 
             dump_file.write(f"{query}\n")
 
-
-            message = "Hello, World! Here is a GET response"
-            self.wfile.write(bytes(message, "utf8"))
+            #message = "Hello, World! Here is a GET response"
+            #self.wfile.write(bytes(message, "utf8"))
 
         def do_POST(self):
             self.send_response(200)
@@ -29,14 +31,20 @@ def create_handler_class(dump_file):
             fields = json.loads(field_string)
             print(f"Incoming POST: {fields}")
             dump_file.write(f"{field_string}\n")
+            dump_file.flush()
 
 
-            message = "Hello, World! Here is a POST response"
-            self.wfile.write(bytes(message, "utf8"))
+            #message = "Hello, World! Here is a POST response"
+            #self.wfile.write(bytes(message, "utf8"))
 
     return handler
 
-def run():
+@click.command()
+@click.option("-c", "--clean", default=False, is_flag=True, help="whether to start with a fresh log file")
+def run(clean: bool):
+    if clean:
+        with contextlib.suppress(FileNotFoundError):
+            os.unlink("data_dump.log")
     with open("data_dump.log", "a") as fh:
         with HTTPServer(('', 22222), create_handler_class(fh)) as server:
             server.serve_forever()
