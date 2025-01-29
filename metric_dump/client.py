@@ -23,7 +23,7 @@ def metric_large(client_id: str, kv_pairs: dict):
     logger.debug(response)
 
 def timestamp():
-    return round(time.time()*1000)
+    return round(time.time()*1000000)
 
 class Zone():
     current_stack = defaultdict(list)

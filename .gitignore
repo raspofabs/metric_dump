@@ -1,3 +1,3 @@
 __pycache__
-data_dump.log
-profile_dump.json
+*.log
+*.json
