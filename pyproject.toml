@@ -7,8 +7,6 @@ readme = "README.md"
 
 [tool.poetry.scripts]
 metric_server = "metric_dump.serve:run"
-metric_small = "metric_dump.client:send_tick"
-metric_large = "metric_dump.client:send_larger"
 metric_process = "metric_dump.client:run_process"
 make_profile = "metric_dump.to_profile_json:run"
 
